@@ -1,0 +1,24 @@
+creditcard:
+  host: http://credit-card:8083
+  
+server:
+  port: 8080
+    
+spring:
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: queue.orders.events
+          binder: local_rabbit
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: rabbitmq
+                port: 5672
+                username: guest
+                password: guest
+                virtual-host: /

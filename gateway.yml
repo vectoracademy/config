@@ -1,0 +1,35 @@
+server: 
+    port: 8080
+ribbon: 
+  eureka:
+    enabled: false
+# cache type: redis(default) | simple -> concurrent hashmap | none -> no cache
+spring:
+  cache:
+    type: simple
+  mvc:
+    dispatchTraceRequest: true
+    dispatchOptionsRequest: true
+  http:
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 10Mb
+  
+  
+zuul:
+   # Avoid duplicates in Cors headers (gateway - microservices) Access-Control-Allow-Origin
+  ignored-headers: Access-Control-Allow-Credentials, Vary, Access-Control-Allow-Credentials
+  gateway:
+        authorized-microservices-endpoints: /gateway, /v2/swagger-docs
+  routes:
+    sync1:
+      path: /syncexample/**
+      url: http://syncms1:8081/
+      sensitiveHeaders:
+    sync2:
+      path: /syncdb/**
+      url: http://syncms2:8082/
+      sensitiveHeaders:  
+                
+                
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000

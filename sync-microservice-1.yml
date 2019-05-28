@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: sync-microservice-1
+
+server:
+  port: 8081
+
+app:
+  uri: http://syncms2:8082/creditcards
